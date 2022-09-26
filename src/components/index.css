@@ -20,7 +20,7 @@ html,
 body,
 .container{
   height:100%;
-  width:100%;
+  width:1010px;
   display: flex;
   position: relative;
   flex-wrap: wrap;
@@ -39,26 +39,28 @@ body,
   justify-content: space-between;
   align-items: flex-start;
   flex-wrap: wrap;
-  padding:50px;
-  width: 40%;
+  padding-left:40px;
+  padding-top: 40px;
+  width: 50%;
+  position: relative;
+  left:20%;
 }
 
 .movies .movie{
-display: flex;
-
+  display: flex;
   align-items: flex-start;
-  margin-bottom: 70px;
   justify-content: space-between;
   font-weight: 300;
   padding: 20px;
   border-radius: 5px;
   box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
-  height: 500px;
-  width: 1000px;
+  height: 281px;
+  width: 450px;
 }
 .movie img{
   position: relative;
-  max-width:200px;
+  max-width: 183px;
+  height: 281px;
   top: -20px;
   left: -20px;
 }
@@ -77,11 +79,16 @@ font-size: 14px;
 }
 .movie .movie__genres{
   list-style: none;
-
-  justify-content: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 10px;
 }
 .movie .movie__genres li {
   margin-left: 10px;
   left: -50px;
   position: relative;
+  border:1px solid darkgrey;
+  border-radius: 2px;
+  background-color:#FAFAFA;
+  padding: 2px;
 }
