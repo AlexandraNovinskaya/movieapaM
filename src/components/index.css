@@ -1,6 +1,8 @@
+@import '~antd/dist/antd.css';
 * {
   box-sizing: border-box;
 }
+
 body {
   margin: 0;
   height:100%;
@@ -92,3 +94,36 @@ font-size: 14px;
   background-color:#FAFAFA;
   padding: 2px;
 }
+@keyframes ldio-966kyf84h18 {
+  0% { transform: translate(-50%,-50%) rotate(0deg); }
+  100% { transform: translate(-50%,-50%) rotate(360deg); }
+}
+.ldio-966kyf84h18 div {
+  position: absolute;
+  width: 162px;
+  height: 162px;
+  border: 27px solid #42f3f1;
+  border-top-color: transparent;
+  border-radius: 50%;
+}
+.ldio-966kyf84h18 div {
+  animation: ldio-966kyf84h18 1s linear infinite;
+  top: 135px;
+  left: 137px;
+}
+.loadingio-spinner-rolling-y3dtl68o7b {
+  width: 270px;
+  height: 270px;
+  display: inline-block;
+  overflow: hidden;
+  background: #ffffff;
+}
+.ldio-966kyf84h18 {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0) scale(1);
+  backface-visibility: hidden;
+  transform-origin: 0 0; /* see note above */
+}
+.ldio-966kyf84h18 div { box-sizing: content-box; }
