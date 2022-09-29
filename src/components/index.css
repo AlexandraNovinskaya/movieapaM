@@ -26,6 +26,7 @@ body,
   display: flex;
   position: relative;
   flex-wrap: wrap;
+  top:30px;
 
 }
 
@@ -127,3 +128,11 @@ font-size: 14px;
   transform-origin: 0 0; /* see note above */
 }
 .ldio-966kyf84h18 div { box-sizing: content-box; }
+
+.searcher{
+  position: relative;
+  width: 955px;
+  height: 40px;
+  background-color: darksalmon;
+  left: 240px;
+}

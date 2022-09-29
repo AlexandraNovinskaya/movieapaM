@@ -1,9 +1,4 @@
 import React, {Component} from "react";
-import PropTypes from "prop-types";
-
-/*function Movies (id :any){
-    return <h4>{id}</h4>
-}*/
 
 export default class Movies extends Component<any, any>{
     render(){
