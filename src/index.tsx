@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './components/index.css';
 import App from './components/App/App';
 
-import Search from "./components/Search/Search";
+
 
 
 const root = ReactDOM.createRoot(
@@ -11,7 +11,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Search></Search>
+
     <App/>
   </React.StrictMode>
 );

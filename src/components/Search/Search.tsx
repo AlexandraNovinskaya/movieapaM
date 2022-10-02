@@ -5,36 +5,37 @@ import axios from "axios";
 
 export default class Search extends Component<any, any> {
 
-    getMoviesList = async (input:string) => {
-        if (input == '') {
-            return [];
+    constructor(props:any) {
+        super(props)
+        this.state = {
+            input: '',
         }
-        let response = await axios.get("https://yts.mx/api/v2/list_movies.json");
-        return response.data.data.movies.title
-
     }
 
-    showResults = async (val:string) => {
-        let movie = await this.getMoviesList(val);
-        let list = document.createElement("ul");
-        for (let i = 0; i < movie.length; i++) {
-            let elem = document.createElement("li");
-            elem.innerHTML = movie[i].name;
-            list.append(elem);
+    onLabelChange = (e:any) => {
+        this.setState({
+            input: e.target.value,
+        })
+    }
 
-        }
-
+    onSubmit = (e:any) => {
+        e.preventDefault()
+        this.props.handleChange(this.state.input)
+        this.setState({
+            input: '',
+        })
     }
 
     render() {
         return (
             <div className="search">
-                <form>
+                <form onSubmit={this.onSubmit}>
                     <label>
                         <input className="searcher" placeholder="search here"
-                               onChange={(e) => console.log(e.target.value)}>
+                               onChange={this.onLabelChange}
+                               value={this.state.input}>
                         </input>
-                        <div id="result" className="result">{this.props.showResults}</div>
+
                     </label>
                 </form>
             </div>
