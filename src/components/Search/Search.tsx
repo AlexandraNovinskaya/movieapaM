@@ -1,39 +1,27 @@
 import React, {Component} from "react";
-import axios from "axios";
-
-
+import {debounce} from 'lodash';
 
 export default class Search extends Component<any, any> {
 
     constructor(props:any) {
         super(props)
-        this.state = {
-            input: '',
-        }
     }
 
-    onLabelChange = (e:any) => {
-        this.setState({
-            input: e.target.value,
-        })
-    }
 
     onSubmit = (e:any) => {
         e.preventDefault()
-        this.props.handleChange(this.state.input)
-        this.setState({
-            input: '',
-        })
+        this.props.handleChange(e.target.value)
     }
 
     render() {
         return (
             <div className="search">
-                <form onSubmit={this.onSubmit}>
+                <form >
                     <label>
                         <input className="searcher" placeholder="search here"
-                               onChange={this.onLabelChange}
-                               value={this.state.input}>
+                               onChange={this.onSubmit}
+
+                        >
                         </input>
 
                     </label>

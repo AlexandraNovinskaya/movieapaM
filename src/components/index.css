@@ -136,3 +136,9 @@ font-size: 14px;
   background-color: darksalmon;
   left: 240px;
 }
+.ant-tabs-nav-wrap{
+  left:400px;
+}
+.ant-tabs-nav{
+  left:200px;
+}

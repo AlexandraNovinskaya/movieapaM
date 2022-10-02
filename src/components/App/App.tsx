@@ -1,11 +1,11 @@
-import React, {Component, ReactNode, useState} from 'react';
+import React, {Component, ReactNode, useCallback, useState} from 'react';
 import axios from "axios";
 import Movies from "../Movies/Movies";
 import MovieItem from "../Movies/MovieItem";
 import Spinner from "../spinner/spinner";
-import {Pagination} from "antd";
+import {Pagination,Rate,Tabs} from "antd";
 import Search from "../Search/Search";
-
+import _ from "lodash";
 
 class App extends Component <any, any> {
     constructor(props: any) {
@@ -15,9 +15,9 @@ class App extends Component <any, any> {
             movies: [],
             totalMovies: 0,
             elementsPerPage: 6,
-            searchTerm: ''
-        };
+            searchTerm: '',
 
+        };
     }
 
 
@@ -45,7 +45,7 @@ class App extends Component <any, any> {
         this.getMovies(pageNumber, this.state.elementsPerPage)
     }
 
-    handleChange = async (str:string) => {
+    handleChange = _.debounce(async (str:string) => {
         console.log("submit result: " + str)
         let result = await axios.get(`https://yts.mx/api/v2/list_movies.json?limit=6&page=1&query_term=${str}`);
         let count = await axios.get(`https://yts.mx/api/v2/list_movies.json?query_term=${str}`);
@@ -59,7 +59,14 @@ class App extends Component <any, any> {
             isLoading: false,
             totalMovies: Math.ceil(count.data.data.movie_count / this.state.elementsPerPage)
         })
-    };
+    }, 1000)
+    rateMovie = async(movieId: number, value: number) => {
+        let guestSessionId = localStorage.getItem("name");
+        let res = await axios.get(
+            `https://yts.mx/api/v2/list_movies.json`)
+        let resRes = res.data.data.movies.id
+        console.log(movieId,value)
+    }
 
     render() {
         const {movies, isLoading} = this.state
@@ -67,6 +74,8 @@ class App extends Component <any, any> {
 
         return (
             <div>
+                <Tabs defaultActiveKey="1">
+                <Tabs.TabPane tab="Search" key="1">
                 <Search handleChange={this.handleChange}></Search>
                 <div className='container'>
                     {isLoading ?
@@ -82,7 +91,13 @@ class App extends Component <any, any> {
                                         poster={movie.medium_cover_image}
                                         title={movie.title}
                                         genres={movie.genres}
+
                                 />
+                                <Rate count={10} onChange={(value) => {
+                                    this.rateMovie(movie.id, value)
+                                }}
+                                />
+
                             </div>
                         )}
                     <Pagination
@@ -95,6 +110,13 @@ class App extends Component <any, any> {
                         showSizeChanger={false}
                     />
                 </div>
+                </Tabs.TabPane>
+                    <Tabs.TabPane tab="Rate" key="2">
+                        <div>
+
+                        </div>
+                    </Tabs.TabPane>
+                </Tabs>
             </div>
         )
     }
