@@ -6,7 +6,7 @@ export default class Movies extends Component<any, any>{
     }
     render(){
         return <div className="movie">
-            <img src={this.props.poster}></img>
+            <img src={this.props.poster} alt=""></img>
             <div className="movie__column">
                 <h3 className="movie__title">{this.props.title}</h3>
                 <h5 className="movie__year">{this.props.year}</h5>

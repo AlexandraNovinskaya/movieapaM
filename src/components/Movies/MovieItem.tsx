@@ -6,7 +6,8 @@ interface MovieItem {
     year:number;
     summary:string;
     medium_cover_image : string;
-    genres : string
+    genres : string,
+    stars:number
 }
 
 export default MovieItem;
