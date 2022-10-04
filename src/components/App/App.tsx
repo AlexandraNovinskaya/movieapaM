@@ -18,8 +18,8 @@ class App extends Component <any, any> {
             searchTerm: '',
             moviesRated: [],
             totalMoviesRated: 0,
-            counter : 0
-
+            counter : 0,
+            moviesCurrent : [],
         };
     }
 
@@ -49,8 +49,19 @@ class App extends Component <any, any> {
         this.getMovies(pageNumber, this.state.elementsPerPage)
     }
 
+    handleRatedClick = (pageNumber: number) => {
+        const lastIndex = pageNumber * this.state.elementsPerPage
+        const firstIndex = lastIndex - this.state.elementsPerPage
+        let slicedMovies = this.state.moviesRated.slice(firstIndex, lastIndex)
+        this.setState({
+            moviesCurrent : slicedMovies
+        })
+
+
+    }
+
     handleChange = _.debounce(async (str: string) => {
-        console.log("submit result: " + str)
+
         let result = await axios.get(`https://yts.mx/api/v2/list_movies.json?limit=6&page=1&query_term=${str}`);
         let count = await axios.get(`https://yts.mx/api/v2/list_movies.json?query_term=${str}`);
         let c = count.data.data.movie_count
@@ -71,17 +82,19 @@ class App extends Component <any, any> {
         movies.push(movie)
         this.setState({
             moviesRated: movies,
-            totalMoviesRated :Math.ceil(this.state.moviesRated / this.state.elementsPerPage),
+            counter : this.state.counter + 1,
+            totalMoviesRated :Math.ceil(this.state.counter / this.state.elementsPerPage),
         })
+
     }
 
     render() {
-        const {movies, moviesRated, isLoading} = this.state
+        const {movies, moviesCurrent, isLoading, counter} = this.state
         const {totalMovies,totalMoviesRated, elementsPerPage} = this.state;
 
         return (
             <div>
-                <Tabs defaultActiveKey="1">
+                <Tabs defaultActiveKey="1" onTabClick={() => this.handleRatedClick(1)}>
                     <Tabs.TabPane tab="Search" key="1">
                         <Search handleChange={this.handleChange}></Search>
                         <div className='container'>
@@ -121,7 +134,7 @@ class App extends Component <any, any> {
                     </Tabs.TabPane>
                     <Tabs.TabPane tab="Rate" key="2">
                         <div className="container">
-                            {(moviesRated as MovieItem[]).map(movie =>
+                            {(moviesCurrent as MovieItem[]).map(movie =>
                                 <div key={movie.id} className="movies">
                                     <Movies key={movie.id}
                                             id={movie.id}
@@ -130,24 +143,22 @@ class App extends Component <any, any> {
                                             poster={movie.medium_cover_image}
                                             title={movie.title}
                                             genres={movie.genres}
-
                                     />
                                     <Rate count={10}
                                           onChange={(value) => {
                                               this.rateMovie(movie, value)
                                           }}
                                           value={movie.stars}
-
                                     />
                                 </div>
                             )}
                             <Pagination
                                 defaultCurrent={1}
-                                onChange={this.handlePageClick}
+                                onChange={this.handleRatedClick}
                                 size="small"
-                                total={totalMoviesRated}
-                                showTotal={(total, range) => `${range[0]}-${range[1]} of ${total} items`}
-                                pageSize={elementsPerPage}
+                                total={counter}
+                                showTotal={(total, range) => `${range[0]}-${range[1]} of ${counter} items`}
+                                pageSize={this.state.elementsPerPage}
                                 showSizeChanger={false}
                             />
                         </div>
