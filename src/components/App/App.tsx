@@ -26,6 +26,7 @@ class App extends Component <any, any> {
 
     setTotalMovies = async () => {
         let result = await axios.get("https://yts.mx/api/v2/list_movies.json");
+
         this.setState({
             totalMovies: Math.ceil(result.data.data.movie_count / this.state.elementsPerPage)
         })
@@ -33,11 +34,12 @@ class App extends Component <any, any> {
     }
 
     getMovies = async (page: number, limit: number) => {
-        let result = await axios.get(`https://yts.mx/api/v2/list_movies.json?limit=${limit}&page=${page}`);
+        let result = await axios.get(`https://yts.mx/api/v2/list_movies.json?limit=${limit}&page=${page}&sort=title`);
         this.setState({
             movies: result.data.data.movies,
             isLoading: false
         })
+
     }
 
     componentDidMount() {
@@ -85,7 +87,7 @@ class App extends Component <any, any> {
             counter : this.state.counter + 1,
             totalMoviesRated :Math.ceil(this.state.counter / this.state.elementsPerPage),
         })
-
+        localStorage.setItem(JSON.stringify(movie),JSON.stringify(value));
     }
 
     render() {
@@ -111,8 +113,10 @@ class App extends Component <any, any> {
                                                 poster={movie.medium_cover_image}
                                                 title={movie.title}
                                                 genres={movie.genres}
+                                                rate={movie.rating}
 
                                         />
+
                                         <Rate count={10} onChange={(value) => {
                                             this.rateMovie(movie, value)
 
@@ -124,9 +128,8 @@ class App extends Component <any, any> {
                             <Pagination
                                 defaultCurrent={1}
                                 onChange={this.handlePageClick}
-                                size="small"
+                                size="default"
                                 total={totalMovies}
-                                showTotal={(total, range) => `${range[0]}-${range[1]} of ${total} items`}
                                 pageSize={elementsPerPage}
                                 showSizeChanger={false}
                             />

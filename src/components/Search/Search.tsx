@@ -18,7 +18,7 @@ export default class Search extends Component<any, any> {
             <div className="search">
                 <form >
                     <label>
-                        <input className="searcher" placeholder="search here"
+                        <input className="searcher" placeholder="Type to search here..."
                                onChange={this.onSubmit}
 
                         >
