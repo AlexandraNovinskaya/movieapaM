@@ -12,3 +12,6 @@ interface MovieItem {
 }
 
 export default MovieItem;
+
+
+
