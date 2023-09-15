@@ -39,3 +39,6 @@ export default class Movies extends Component<any, any>{
         </div>
     }
 }
+
+
+
