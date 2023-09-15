@@ -33,6 +33,7 @@
     "lint-staged": "^13.0.2",
     "prettier": "^2.7.1"
   },
+  
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
